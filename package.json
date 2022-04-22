@@ -1,0 +1,51 @@
+{
+  "name": "leu-bot",
+  "version": "0.0.1-SNAPSHOT",
+  "description": "Le bot Discord du Lames Extended Universe",
+  "type": "module",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "tsc",
+    "build:changelog": "npx @discordx/changelog --root=src",
+    "dev": "node --loader ts-node/esm/transpile-only src/main.ts",
+    "serve": "node build/main.js",
+    "start": "nodemon --exec node --loader ts-node/esm/transpile-only src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PoulpY2K/leu-bot.git"
+  },
+  "keywords": [
+    "leu",
+    "typescript",
+    "discord",
+    "bot",
+    "music"
+  ],
+  "author": "Jérémy Laurent <contact@jeremy-laurent.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PoulpY2K/leu-bot/issues"
+  },
+  "homepage": "https://github.com/PoulpY2K/leu-bot#readme",
+  "dependencies": {
+    "@discordjs/voice": "^0.9.0",
+    "@discordx/importer": "^1.1.2",
+    "@discordx/music": "^4.0.0",
+    "@discordx/pagination": "^2.0.1",
+    "discord.js": "^13.6.0",
+    "discordx": "^9.5.2",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  }
+}
