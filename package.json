@@ -33,6 +33,7 @@
     "@discordx/importer": "^1.1.2",
     "@discordx/music": "^4.0.0",
     "@discordx/pagination": "^2.0.1",
+    "discord-api-types": "^0.31.2",
     "discord.js": "^13.6.0",
     "discordx": "^9.5.2",
     "reflect-metadata": "^0.1.13"
