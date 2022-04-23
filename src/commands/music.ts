@@ -7,7 +7,9 @@ import { Message } from 'discord.js';
 
 export class MyQueue extends Queue {
   lastControlMessage?: Message;
+
   timeoutTimer?: NodeJS.Timeout;
+
   lockUpdate = false;
 
   constructor(player: Player, guild: Guild, public channel?: TextBasedChannel) {
@@ -16,7 +18,11 @@ export class MyQueue extends Queue {
 }
 
 export class MyPlayer extends Player {
+  empty?: String;
+
   constructor() {
     super();
+
+    this.empty = undefined;
   }
 }

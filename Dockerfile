@@ -14,9 +14,6 @@ RUN npm install
 COPY src ./src
 COPY tsconfig.json   .
 
-RUN sed -i "s|discord-api-types|discord-api-types/v10|g" node_modules/discordx/build/cjs/decorators/classes/DApplicationCommand.d.ts
-RUN sed -i "s|discord-api-types|discord-api-types/v10|g" node_modules/discordx/build/esm/decorators/classes/DApplicationCommand.d.ts
-
 # Build project
 RUN npm run build
 
