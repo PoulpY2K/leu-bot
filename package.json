@@ -36,7 +36,7 @@
     "@discordx/music": "^4.0.0",
     "@discordx/pagination": "^2.0.1",
     "discord.js": "^13.6.0",
-    "discordx": "^9.5.2",
+    "discordx": "^9.5.3",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
