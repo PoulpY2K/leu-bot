@@ -37,7 +37,9 @@
     "@discordx/pagination": "^2.0.1",
     "discord.js": "^13.6.0",
     "discordx": "^9.5.3",
-    "reflect-metadata": "^0.1.13"
+    "ffmpeg-static": "^4.4.1",
+    "reflect-metadata": "^0.1.13",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",

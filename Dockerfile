@@ -10,7 +10,10 @@ COPY package.json .
 RUN apk --no-cache --virtual build-dependencies add \
   python3 \
   make \
-  g++
+  g++ \
+  libtool \
+  autoconf \
+  automake
 
 # Install dependencies
 RUN npm install
@@ -34,7 +37,10 @@ COPY --from=build-runner /tmp/app/package.json /app/package.json
 RUN apk --no-cache --virtual build-dependencies add \
   python3 \
   make \
-  g++
+  g++ \
+  libtool \
+  autoconf \
+  automake
 
 # Install dependencies
 RUN npm install --only=production
