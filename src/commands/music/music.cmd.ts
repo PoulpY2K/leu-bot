@@ -16,9 +16,9 @@ import { MyPlayer } from "./music.js";
 
 @Discord()
 // Create music group
-@SlashGroup({ name: "music" })
+@SlashGroup({ name: "ldu" })
 // Assign all slashes to music group
-@SlashGroup("music")
+@SlashGroup("ldu")
 export class Music {
   player;
 
@@ -141,17 +141,6 @@ export class Music {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-repeat")
-  async repeatControl(interaction: CommandInteraction): Promise<void> {
-    const queue = this.validateControlInteraction(interaction);
-    if (!queue) {
-      return;
-    }
-    queue.setRepeat(!queue.repeat);
-    await interaction.deferReply();
-    interaction.deleteReply();
-  }
-
   @ButtonComponent("btn-queue")
   queueControl(interaction: CommandInteraction): void {
     const queue = this.validateControlInteraction(interaction);
@@ -159,28 +148,6 @@ export class Music {
       return;
     }
     queue.view(interaction);
-  }
-
-  @ButtonComponent("btn-mix")
-  async mixControl(interaction: CommandInteraction): Promise<void> {
-    const queue = this.validateControlInteraction(interaction);
-    if (!queue) {
-      return;
-    }
-    queue.mix();
-    await interaction.deferReply();
-    interaction.deleteReply();
-  }
-
-  @ButtonComponent("btn-controls")
-  async controlsControl(interaction: CommandInteraction): Promise<void> {
-    const queue = this.validateControlInteraction(interaction);
-    if (!queue) {
-      return;
-    }
-    queue.updateControlMessage({ force: true });
-    await interaction.deferReply();
-    interaction.deleteReply();
   }
 
   async processJoin(
@@ -263,27 +230,6 @@ export class Music {
       interaction.followUp({ embeds: [embed] });
     }
   }
-
-  // @Slash("spotify", { description: "Play a spotify link" })
-  // async spotify(
-  //   @SlashOption("link", { description: "spotify link" })
-  //   link: string,
-  //   interaction: CommandInteraction
-  // ): Promise<void> {
-  //   const queue = await this.processJoin(interaction);
-  //   if (!queue) {
-  //     return;
-  //   }
-  //   const songs = await queue.spotify(link, { user: interaction.user });
-  //   if (!songs) {
-  //     interaction.followUp("The spotify song/playlist could not be found");
-  //   } else {
-  //     const embed = new MessageEmbed();
-  //     embed.setTitle("Enqueued");
-  //     embed.setDescription(`Enqueued  **${songs.length}** spotify songs`);
-  //     interaction.followUp({ embeds: [embed] });
-  //   }
-  // }
 
   validateInteraction(
     interaction: CommandInteraction
@@ -387,34 +333,6 @@ export class Music {
 
     queue.resume();
     interaction.reply("> resumed music");
-  }
-
-  @Slash("seek", { description: "seek music" })
-  seek(
-    @SlashOption("time", {
-      description: "seek time in seconds",
-    })
-    time: number,
-    interaction: CommandInteraction
-  ): void {
-    const validate = this.validateInteraction(interaction);
-    if (!validate) {
-      return;
-    }
-
-    const { queue } = validate;
-
-    if (!queue.isPlaying || !queue.currentTrack) {
-      interaction.reply("> currently not playing any song");
-      return;
-    }
-
-    const state = queue.seek(time * 1000);
-    if (!state) {
-      interaction.reply("> could not seek");
-      return;
-    }
-    interaction.reply("> current music seeked");
   }
 
   @Slash("leave", { description: "stop music" })
