@@ -12,12 +12,14 @@ import fonts from './foundations/fonts'
 // Component style overrides
 import Link from './components/link'
 import Button from './components/button'
+import Code from './components/code'
 
 const overrides = {
   config,
   styles,
   components: {
     Link: Link,
+    Code: Code
     // Button: Button
   },
   fonts

@@ -11,7 +11,12 @@ import http from "http";
 import { Server } from "@discordx/socket.io"
 
 const server = http.createServer();
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
 
 export const bot = new Client({
   // To only use global commands (use @Guild for specific guild command), comment this line

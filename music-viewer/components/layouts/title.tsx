@@ -1,8 +1,9 @@
-import { Center, Heading } from '@chakra-ui/react'
+import { Center, Heading, Stack, Text, Progress } from '@chakra-ui/react'
+import MadeBy from '../made-by'
 
 const Title = () => {
   return (
-    <Center>
+    <Center flexDirection="column">
       <Heading
         as="h1"
         color="white"
@@ -11,7 +12,10 @@ const Title = () => {
         textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         textAlign="center"
       >
-        Discord Music Viewer
+        <Stack direction="column">
+          <Text color="#7289DA">Discord</Text>
+          <Text>Music Viewer</Text>
+        </Stack>
       </Heading>
     </Center>
   )
