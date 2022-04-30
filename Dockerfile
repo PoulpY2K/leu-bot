@@ -7,6 +7,14 @@ WORKDIR /tmp/app
 # Move package.json
 COPY package.json .
 
+RUN apk --no-cache --virtual build-dependencies add \
+  python3 \
+  make \
+  g++ \
+  libtool \
+  autoconf \
+  automake
+
 # Install dependencies
 RUN npm install
 
@@ -25,6 +33,14 @@ WORKDIR /app
 
 # Copy package.json from build-runner
 COPY --from=build-runner /tmp/app/package.json /app/package.json
+
+RUN apk --no-cache --virtual build-dependencies add \
+  python3 \
+  make \
+  g++ \
+  libtool \
+  autoconf \
+  automake
 
 # Install dependencies
 RUN npm install --only=production
