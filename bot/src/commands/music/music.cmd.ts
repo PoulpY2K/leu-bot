@@ -10,9 +10,9 @@ import {
   SlashOption,
 } from "discordx";
 
-import type { MyQueue } from "./music.js";
+import type { MyQueue } from "../../music.js";
 // eslint-disable-next-line import/no-unresolved
-import { MyPlayer } from "./music.js";
+import { MyPlayer } from "../../music.js";
 
 @Discord()
 // Create music group

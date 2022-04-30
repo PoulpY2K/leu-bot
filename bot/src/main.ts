@@ -5,6 +5,14 @@ import type { Interaction, Message } from "discord.js";
 import { Intents } from "discord.js";
 import { Client } from "discordx";
 
+import http from "http";
+
+
+import { Server } from "@discordx/socket.io"
+
+const server = http.createServer();
+const io = new Server(server);
+
 export const bot = new Client({
   // To only use global commands (use @Guild for specific guild command), comment this line
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
@@ -46,6 +54,12 @@ bot.once("ready", async () => {
   // );
 
   console.log("Bot started");
+
+  await io.build();
+
+  server.listen(4200, () => {
+    console.log("HTTP Server started on port 4200...");
+  });
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {
@@ -63,6 +77,7 @@ async function run() {
 
   // The following syntax should be used in the ECMAScript environment
   await importx(dirname(import.meta.url) + "/{events,commands}/**/*.{ts,js}");
+  await importx(dirname(import.meta.url) + "/{api,sockets}/**/*.{js,ts}");
 
   // Let's start the bot
   if (!process.env.BOT_TOKEN) {
