@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 const StartButton = () => {
   return (
     <Flex justifyContent="center">
-      <NextLink href="/dashboard" passHref>
+      <NextLink href="/login" passHref>
         <Link>
           <Button
             size="lg"

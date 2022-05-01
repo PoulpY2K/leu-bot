@@ -1,39 +1,31 @@
 import { Button, Flex, Stack, Text } from '@chakra-ui/react'
+import { Router, withRouter } from 'next/router'
 import { MutableRefObject, useEffect, useState } from 'react'
 import { Socket } from 'socket.io'
 import { DefaultEventsMap } from 'socket.io/dist/typed-events'
 import YoutubeCard from '../components/dashboard/youtube-card'
+import CurrentTrack from '../model/socket/current-track'
 
-interface currentTrack {
-  title: string
-  shortUrl: string
-  author: {
-    name: string
-    url: string
-    channelID: string
+const Dashboard = ({
+  props,
+  router
+}: {
+  props: {
+    socketRef: MutableRefObject<Socket<DefaultEventsMap, DefaultEventsMap>>
+    isConnected: boolean
   }
-  bestThumbnail: {
-    url: string | null
-    width: number
-    height: number
-  }
-  duration: string | null
-}
-
-const Dashboard = (props: {
-  socketRef: MutableRefObject<Socket<DefaultEventsMap, DefaultEventsMap>>
-  isConnected: boolean
+  router: Router
 }) => {
-  const [currentTrack, setCurrentTrack] = useState<currentTrack>()
+  const [currentTrack, setCurrentTrack] = useState<CurrentTrack>()
 
   useEffect(() => {
     if (props.isConnected) {
       props.socketRef.current.emit('GET_TRACK', '861596038066733156')
       const interval = setInterval(() => {
         props.socketRef.current.emit('GET_TRACK', '861596038066733156')
-      }, 5000)
+      }, 1000)
 
-      props.socketRef.current.on('TRACK', (track: currentTrack) => {
+      props.socketRef.current.on('TRACK', (track: CurrentTrack) => {
         setCurrentTrack(track)
       })
     }
@@ -62,4 +54,4 @@ const Dashboard = (props: {
   )
 }
 
-export default Dashboard
+export default withRouter(Dashboard)

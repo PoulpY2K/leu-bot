@@ -28,7 +28,7 @@ export class MusicSocket {
     const queue = this.player.getQueue(await bot.guilds.fetch(guildId));
 
     if (queue.isPlaying && queue.currentTrack?.metadata.isYoutubeTrack()) {
-      server.emit("TRACK", queue.currentTrack.metadata.info);
+      server.emit("TRACK", Object.assign(queue.currentTrack.metadata.info, { playbackDuration: queue.currentTrack.playbackDuration, user: queue.currentTrack.metadata.options?.user }));
     } else {
       server.emit("TRACK", null)
     }

@@ -1,31 +1,49 @@
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, Stack, HStack, Spacer } from '@chakra-ui/react'
+import CurrentTrack from '../../model/socket/current-track'
+import YoutubeEmbed from './youtube-embed'
 
-interface currentTrack {
-  title: string
-  shortUrl: string
-  author: {
-    name: string
-    url: string
-    channelID: string
-  }
-  bestThumbnail: {
-    url: string | null
-    width: number
-    height: number
-  }
-  duration: string | null
+const fromMS = (duration: number): string => {
+  const seconds = Math.floor((duration / 1e3) % 60)
+  const minutes = Math.floor((duration / 6e4) % 60)
+  const hours = Math.floor(duration / 36e5)
+  const secondsPad = `${seconds}`.padStart(2, '0')
+  const minutesPad = `${minutes}`.padStart(2, '0')
+  const hoursPad = `${hours}`.padStart(2, '0')
+  return `${hours ? `${hoursPad}:` : ''}${minutesPad}:${secondsPad}`
 }
 
-const YoutubeCard = (props: { currentTrack: currentTrack }) => {
+const YoutubeCard = (props: { currentTrack: CurrentTrack }) => {
   return (
-    <Flex direction="column">
-      <Image
-        width={props.currentTrack.bestThumbnail.width!}
-        height={props.currentTrack.bestThumbnail.height!}
-        src={props.currentTrack.bestThumbnail.url!}
-        alt="Thumbnail"
-      />
-      <Text>{props.currentTrack?.title}</Text>
+    <Flex direction="row">
+      <Box bgColor="red" width="0.5vw" borderLeftRadius="xl"></Box>
+      <Stack direction="column" backgroundColor="discord.100" p="8" spacing="5">
+        <Text fontWeight="extrabold" textAlign="center">
+          {props.currentTrack?.title}
+        </Text>
+        <YoutubeEmbed
+          embedId={props.currentTrack.id}
+          width={props.currentTrack.bestThumbnail.width!}
+          height={props.currentTrack.bestThumbnail.height!}
+        ></YoutubeEmbed>
+        <Flex direction="row" alignItems="center">
+          <Text textAlign="left">
+            {fromMS(props.currentTrack.playbackDuration) +
+              ' / ' +
+              props.currentTrack?.duration}
+          </Text>
+          <Spacer></Spacer>
+          <Stack alignItems="center" direction="row">
+            <Text textAlign="left">
+              Demandé par {props.currentTrack.user.username}{' '}
+            </Text>
+            <Image
+              width="10"
+              borderRadius="full"
+              src={props.currentTrack.user.displayAvatarURL}
+            ></Image>
+          </Stack>
+        </Flex>
+      </Stack>
     </Flex>
   )
 }

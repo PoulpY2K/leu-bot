@@ -7,10 +7,17 @@ import ProgressBar from '../components/home/progress-bar'
 import { useState, useEffect, MutableRefObject } from 'react'
 import StartButton from '../components/home/start-button'
 import { DefaultEventsMap } from 'socket.io/dist/typed-events'
+import { Router, withRouter } from 'next/router'
 
-const Index = (props: {
-  socketRef: MutableRefObject<Socket<DefaultEventsMap, DefaultEventsMap>>
-  isConnected: boolean
+const Index = ({
+  props,
+  router
+}: {
+  props: {
+    socketRef: MutableRefObject<Socket<DefaultEventsMap, DefaultEventsMap>>
+    isConnected: boolean
+  }
+  router: Router
 }) => {
   const [progress, setProgress] = useState<number>(0)
 
@@ -55,4 +62,4 @@ const Index = (props: {
   )
 }
 
-export default Index
+export default withRouter(Index)

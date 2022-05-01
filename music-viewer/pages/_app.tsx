@@ -31,6 +31,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
         <Component
           {...pageProps}
           key={router.route}
+          props={{ socketRef, isConnected }}
           socketRef={socketRef}
           isConnected={isConnected}
         />
