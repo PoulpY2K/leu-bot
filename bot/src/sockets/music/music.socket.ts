@@ -1,4 +1,4 @@
-import type { CommandInteraction, Guild } from "discord.js";
+import { CommandInteraction, Guild } from "discord.js";
 import { GuildMember, MessageEmbed } from "discord.js";
 import type { ArgsOf } from "discordx";
 
@@ -9,20 +9,28 @@ import type { MyQueue } from "../../music.js"
 // eslint-disable-next-line import/no-unresolved
 import { MyPlayer } from "../../music.js";
 
+import { bot } from "../../main.js"
+
 @Ws()
 export class MusicSocket {
-  @On("chat message")
-  @Guard(([message]: [string], server: Server, socket: Socket, next: Next) => {
-    console.log(message, typeof server, typeof socket, typeof next);
-    return next();
-  })
-  onChatMsg(
-    [message]: [string],
+  player;
+
+  constructor() {
+    this.player = new MyPlayer();
+  }
+
+  @On("GET_TRACK")
+  async onStatus(
+    [guildId]: [string],
     server: Server,
     socket: Socket,
-    arg4: unknown
-  ): void {
-    console.log(message, typeof server, typeof socket, typeof arg4);
-    server.emit("chat message", message);
+  ): Promise<void> {
+    const queue = this.player.getQueue(await bot.guilds.fetch(guildId));
+
+    if (queue.isPlaying && queue.currentTrack?.metadata.isYoutubeTrack()) {
+      server.emit("TRACK", queue.currentTrack.metadata.info);
+    } else {
+      server.emit("TRACK", null)
+    }
   }
 }

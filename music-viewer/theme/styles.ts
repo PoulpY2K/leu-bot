@@ -3,6 +3,7 @@ import { Dict } from '@chakra-ui/utils'
 
 const styles = {
   global: (props: Dict<any> | StyleFunctionProps) => ({
+
   })
 }
 

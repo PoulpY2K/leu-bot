@@ -1,5 +1,4 @@
-import { Center, Heading, Stack, Text, Progress } from '@chakra-ui/react'
-import MadeBy from '../made-by'
+import { Center, Heading, Stack, Text } from '@chakra-ui/react'
 
 const Title = () => {
   return (

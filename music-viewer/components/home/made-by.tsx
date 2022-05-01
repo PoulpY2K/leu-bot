@@ -8,7 +8,7 @@ const MadeBy = () => {
         px="4"
         colorScheme="whiteAlpha"
         variant="solid"
-        children="Made with ❤️ by Jérémy Laurent"
+        children="Fais avec ❤️ par Jérémy Laurent"
       />
     </Flex>
   )

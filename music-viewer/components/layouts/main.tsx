@@ -3,7 +3,7 @@ import { Box, Container } from '@chakra-ui/react'
 import React from 'react'
 import { Router } from 'next/router'
 
-export const siteTitle = 'Lames Discord Universe'
+export const siteTitle = 'Discord LDU Bot Viewer'
 
 const Main = ({
   children,
@@ -24,7 +24,7 @@ const Main = ({
         <meta property="og:type" content="website" />
         <meta
           name="description"
-          content="Découvrez l'univers du Lames Discord Universe"
+          content="Dashboard de visualisation de la musique émise par le bot LDU."
         />
         <meta name="author" content="Jérémy Laurent" />
         <meta name="author" content="LDU" />

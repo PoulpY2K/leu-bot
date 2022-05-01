@@ -1,53 +1,58 @@
-import { Flex, Stack, Box } from '@chakra-ui/react'
+import { Flex, Stack } from '@chakra-ui/react'
 import Header from '../components/layouts/header'
-import Title from '../components/layouts/title'
+import Title from '../components/home/title'
 import { Socket } from 'socket.io'
-import MadeBy from '../components/made-by'
-import ProgressBar from '../components/progress-bar'
-import { Dispatch, SetStateAction, useState, useEffect } from 'react'
+import MadeBy from '../components/home/made-by'
+import ProgressBar from '../components/home/progress-bar'
+import { useState, useEffect, MutableRefObject } from 'react'
+import StartButton from '../components/home/start-button'
+import { DefaultEventsMap } from 'socket.io/dist/typed-events'
 
-const Page = (props: { websocket: Socket }) => {
-  const [progress, setProgress]: [number, Dispatch<SetStateAction<number>>] =
-    useState(0)
+const Index = (props: {
+  socketRef: MutableRefObject<Socket<DefaultEventsMap, DefaultEventsMap>>
+  isConnected: boolean
+}) => {
+  const [progress, setProgress] = useState<number>(0)
 
-  const socket = props.websocket
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const delay: number = 15
-    let counter = 0
+    if (props.isConnected) {
+      const delay: number = 15
+      let counter = 0
 
-    socket.on('connect', () => {
-      console.log(socket.id)
-    })
-
-    const interval = setInterval(() => {
-      counter++
-      setProgress(counter)
-      if (counter == 100) {
-        clearInterval(interval)
-      }
-    }, delay)
-  }, [])
+      const interval = setInterval(() => {
+        counter++
+        setProgress(counter)
+        if (counter == 100) {
+          setIsLoading(false)
+          clearInterval(interval)
+        }
+      }, delay)
+    }
+  }, [props.isConnected, isLoading])
 
   return (
     <Flex
       minH="100vh"
       justifyContent="center"
-      backgroundColor="#36393f"
+      backgroundColor="discord.200"
       alignItems="center"
     >
       <Stack direction="column">
         <Header></Header>
         <Title></Title>
-        <Stack direction="column" spacing="15vh">
+        <Stack direction="column" spacing="10vh">
           <MadeBy></MadeBy>
-          <Box>
+          {isLoading ? (
             <ProgressBar progress={progress}></ProgressBar>
-          </Box>
+          ) : (
+            <StartButton></StartButton>
+          )}
         </Stack>
       </Stack>
     </Flex>
   )
 }
 
-export default Page
+export default Index
