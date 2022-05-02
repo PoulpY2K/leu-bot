@@ -1,6 +1,15 @@
-import { Box, Flex, Image, Text, Stack, HStack, Spacer } from '@chakra-ui/react'
-import CurrentTrack from '../../model/socket/current-track'
-import YoutubeEmbed from './youtube-embed'
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  Stack,
+  HStack,
+  Spacer,
+  Code
+} from '@chakra-ui/react'
+import CurrentTrack from '../../../model/socket/current-track'
+import YoutubeEmbed from '../youtube/youtube-embed'
 
 const fromMS = (duration: number): string => {
   const seconds = Math.floor((duration / 1e3) % 60)
@@ -12,11 +21,25 @@ const fromMS = (duration: number): string => {
   return `${hours ? `${hoursPad}:` : ''}${minutesPad}:${secondsPad}`
 }
 
-const YoutubeCard = (props: { currentTrack: CurrentTrack }) => {
+const YoutubeCard = (props: {
+  currentTrack: CurrentTrack
+  channelName: string
+}) => {
   return (
     <Flex direction="row">
       <Box bgColor="red" width="0.5vw" borderLeftRadius="xl"></Box>
       <Stack direction="column" backgroundColor="discord.100" p="8" spacing="5">
+        <Flex
+          direction="column"
+          textAlign="center"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box bgColor="discord.500" p="3" w="30vw" borderRadius="full">
+            <Text>Écoute en cours dans le salon</Text>
+            <Text fontWeight="bold">{props.channelName}</Text>
+          </Box>
+        </Flex>
         <Text fontWeight="extrabold" textAlign="center">
           {props.currentTrack?.title}
         </Text>

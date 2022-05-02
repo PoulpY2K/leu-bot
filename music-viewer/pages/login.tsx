@@ -24,7 +24,6 @@ const Login = ({
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsChanged(true)
-    console.log(e.target.value)
     setGuildId(e.target.value)
   }
 
@@ -37,20 +36,22 @@ const Login = ({
   }
 
   useEffect(() => {
-    props.socketRef.current.on('GUILD', (guild: string) => {
-      if (guild == guildId && props.isConnected) {
-        setCanAccess(true)
-        setIsLoading(false)
-        router.push({
-          pathname: '/dashboard',
-          query: { guildId: guild }
-        })
-      } else {
-        setIsLoading(false)
-        setCanAccess(false)
-        setGuildId('')
-      }
-    })
+    if (props.isConnected) {
+      props.socketRef.current.on('GUILD', (guild: string) => {
+        if (guildId && guild == guildId && props.isConnected) {
+          setCanAccess(true)
+          setIsLoading(false)
+          router.push({
+            pathname: '/dashboard',
+            query: { guildId: guild }
+          })
+        } else {
+          setIsLoading(false)
+          setCanAccess(false)
+          setGuildId('')
+        }
+      })
+    }
   }, [isLoading])
 
   return (
