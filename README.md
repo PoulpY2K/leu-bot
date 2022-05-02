@@ -35,20 +35,20 @@
   <summary>Sommaire</summary>
   <ol>
     <li>
-      <a href="#about-the-project">À propos du projet</a>
+      <a href="#à-propos-du-projet">À propos du projet</a>
       <ul>
-        <li><a href="#built-with">Construit avec</a></li>
+        <li><a href="#construit-avec">Construit avec</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Pour commencer</a>
+      <a href="#pour-commencer">Pour commencer</a>
       <ul>
-        <li><a href="#prerequisites">Prérequis</a></li>
+        <li><a href="#prérequis">Prérequis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Utilisation</a></li>
-    <li><a href="#license">Licence</a></li>
+    <li><a href="#utilisation">Utilisation</a></li>
+    <li><a href="#licence">Licence</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -61,7 +61,7 @@
 
 <p align="right">(<a href="#top">Revenir au début</a>)</p>
 
-### Built With
+### Construit avec
 
 - [Next.js](https://nextjs.org/)
 - [Discord.js](https://github.com/discordjs/discord.js)
