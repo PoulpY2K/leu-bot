@@ -8,6 +8,7 @@
     "airbnb-typescript",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "next/core-web-vitals",
     "plugin:eslint-comments/recommended",
     "prettier"
   ],

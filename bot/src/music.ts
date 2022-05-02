@@ -18,6 +18,18 @@ import {
 } from "discord.js";
 
 export class MyQueue extends Queue {
+  static #instance: MyQueue;
+
+  constructor(player: Player, guild: Guild, public channel?: TextBasedChannel) {
+    super(player, guild);
+
+    if (MyQueue.#instance) { return MyQueue.#instance }
+
+    MyQueue.#instance = this;
+    setInterval(() => this.updateControlMessage(), 1e4);
+    // empty constructor
+  }
+
   lastControlMessage?: Message;
 
   timeoutTimer?: NodeJS.Timeout;
@@ -35,12 +47,6 @@ export class MyQueue extends Queue {
     }
 
     return this.toMS(track.metadata.info.duration);
-  }
-
-  constructor(player: Player, guild: Guild, public channel?: TextBasedChannel) {
-    super(player, guild);
-    setInterval(() => this.updateControlMessage(), 1e4);
-    // empty constructor
   }
 
   public fromMS(duration: number): string {
@@ -297,8 +303,14 @@ export class MyQueue extends Queue {
 }
 
 export class MyPlayer extends Player {
+  static #instance: MyPlayer;
+
   constructor() {
     super();
+
+    if (MyPlayer.#instance) { return MyPlayer.#instance }
+
+    MyPlayer.#instance = this;
 
     this.on<MyQueue, "onStart">("onStart", ([queue]) => {
       queue.updateControlMessage({ force: true });
